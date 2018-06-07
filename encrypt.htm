@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Şifreleme</title>
+	<script type="text/javascript" src="he.js"></script>
+    <style>
+        body{
+        margin: 0;
+        padding: 0;
+         
+            
+        }
+        
+        #content{
+              box-shadow: inset 0px 0px 64px 0px rgba(0,0,0,0.75);
+            margin: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            display: flex;
+            background-color: aqua;
+            justify-content: center;
+            flex-direction: column;
+            height:100vh;
+        }
+        input,button{
+            margin: 3px;
+        }
+        
+        #sonuc{
+            text-align: center;
+            background: rgba(0,0,0,0.3)
+                color:white;
+        }
+        #header{
+            text-align: center;
+            font-size: 72px;
+            text-shadow: 0 1px 0 #ccc, 
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+color:white;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1 id="header">Şifreleme</h1>
+<input id="txtbox" placeholder="Şifrelenecek / Şifresi Çözülecek Yazı" style="text-align: center">
+<button id="test" onclick="enc(document.getElementById('txtbox').value)">Şifrele</button>
+<button id="test" onclick="decr(document.getElementById('txtbox').value)">Şifreyi Çöz</button>
+<div id="sonuc"></div>
+    </div>
+<script type="text/javascript">
+
+
+
+
+
+
+
+
+	var alfabe = ["A","B","C","Ç","D","E","F","G","Ğ","H","I","İ","J","K","L","M","N","O","Ö","P","R","S","Ş","T","U","Ü","V","Y","Z","a","b","c","ç","d","e","f","g","ğ","h","ı","i","j","k","l","m","n","o","ö","p","r","s","ş","t","u","ü","v","y","z","0","1","2","3","4","5","6","7","8","9"," ",",",".","?","!",":",")","("]
+
+	var encryptedalfabe = [];
+	for (var i = alfabe.length - 1; i >= 0; i--) {
+		encryptedalfabe.push("&#" + (i + 9727) + ";");
+		
+
+	}
+
+var sonuc = "";
+	function enc(x) {
+		var txt = x.split("")
+		console.log(txt)
+		for (var i = txt.length - 1; i >= 0; i--) {
+			console.log(txt[i])
+			var index = alfabe.indexOf(txt[i]);
+			console.log(index)
+			sonuc = sonuc + encryptedalfabe[index]
+		}
+/*
+var splitter = sonuc.split("");
+sonuc = ""
+		for (var i = splitter.length - 1; i >= 0; i--) {
+			
+			sonuc = sonuc + splitter[i]
+		}
+		*/
+		document.getElementById("sonuc").innerHTML = sonuc;
+        sonuc = "";
+	}
+
+	function decr(x) {
+		var sonuc = ""
+		var end = [];
+		var txt = x.split("")
+		for (var i = txt.length - 1; i >= 0; i--) {
+			console.log(txt[i])
+			var symbol = he.encode(String(txt[i]),{decimal:true});
+			console.log(symbol)
+			var index = encryptedalfabe.indexOf(symbol);
+			console.log(index);
+			sonuc = sonuc + alfabe[index];
+		}
+		document.getElementById("sonuc").innerHTML = sonuc;
+	}
+</script>
+</body>
+</html>
